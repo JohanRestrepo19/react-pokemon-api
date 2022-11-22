@@ -3,7 +3,7 @@ import AuthRoutes from './auth/routes/AuthRoutes'
 import PokemonRoutes from './pokemon/routes/PokemonRoutes'
 
 //TODO: Implementar la validación con firebase
-const status = 'authenticated'
+const status = 'not-authenticated'
 const App = () => {
   return (
     <Routes>
