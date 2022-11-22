@@ -1,7 +1,19 @@
-import './App.css'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import AuthRoutes from './auth/routes/AuthRoutes'
+import PokemonRoutes from './pokemon/routes/PokemonRoutes'
 
+const status = 'authenticated'
 const App = () => {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>
+  return (
+    <Routes>
+      {status === 'authenticated' ? (
+        <Route path="/*" element={<PokemonRoutes />} />
+      ) : (
+        <Route path="/auth/*" element={<AuthRoutes />} />
+      )}
+      <Route path="/*" element={<Navigate to="/auth/login" />} />
+    </Routes>
+  )
 }
 
 export default App
