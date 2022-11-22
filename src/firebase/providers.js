@@ -21,7 +21,7 @@ export const registerWithEmailAndPassword = async ({ email, password }) => {
   } catch (error) {
     return {
       ok: false,
-      msg: error.message,
+      errorMessage: error.message,
     }
   }
 }
@@ -41,7 +41,7 @@ export const loginWithEmailAndPassword = async ({ email, password }) => {
   } catch (error) {
     return {
       ok: false,
-      msg: error.message,
+      errorMessage: error.message,
     }
   }
 }
@@ -55,7 +55,7 @@ export const logoutFirebase = async () => {
   } catch (error) {
     return {
       ok: false,
-      msg: error.message,
+      errorMessage: error.message,
     }
   }
 }
