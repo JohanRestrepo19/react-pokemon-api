@@ -1,5 +1,7 @@
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm'
+import { startLogin } from '../../store/auth/authThunk'
 import { AuthLayout } from '../layouts/AuthLayout'
 
 const initialFormState = {
@@ -10,9 +12,11 @@ const LoginPage = () => {
   const { email, password, onInputChange, formState } =
     useForm(initialFormState)
 
+  const dispatch = useDispatch()
+
   const handleFormSubmit = event => {
     event.preventDefault()
-    console.log(formState)
+    dispatch(startLogin({ email, password }))
   }
 
   return (

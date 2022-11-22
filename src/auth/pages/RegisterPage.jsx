@@ -1,5 +1,7 @@
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm'
+import { startRegisterUser } from '../../store/auth/authThunk'
 import { AuthLayout } from '../layouts/AuthLayout'
 
 const initialFormState = {
@@ -11,8 +13,12 @@ const RegisterPage = () => {
   const { email, password, onInputChange, formState } =
     useForm(initialFormState)
 
+  const dispatch = useDispatch()
+
   const handleFormSubmit = event => {
     event.preventDefault()
+    dispatch(startRegisterUser({ email, password }))
+
     console.log(formState)
   }
   return (

@@ -1,10 +1,11 @@
+import { useSelector } from 'react-redux'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import AuthRoutes from './auth/routes/AuthRoutes'
 import PokemonRoutes from './pokemon/routes/PokemonRoutes'
 
 //TODO: Implementar la validación con firebase
-const status = 'not-authenticated'
 const App = () => {
+  const { status } = useSelector(state => state.auth)
   return (
     <Routes>
       {status === 'authenticated' ? (
