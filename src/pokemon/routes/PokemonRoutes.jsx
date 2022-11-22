@@ -4,8 +4,14 @@ import PokemonPage from '../pages/PokemonPage'
 const PokemonRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<PokemonPage />} />
-      <Route path="/*" element={<Navigate to="/" />} />
+      <Route
+        path="/"
+        element={<PokemonPage />}
+      />
+      <Route
+        path="/*"
+        element={<Navigate to="/" />}
+      />
     </Routes>
   )
 }
