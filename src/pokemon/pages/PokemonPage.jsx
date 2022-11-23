@@ -1,8 +1,11 @@
+import { PokemonGrid } from '../components/'
+import PokemonLayout from '../layouts/PokemonLayout'
+
 const PokemonPage = () => {
   return (
-    <div>
-      <p>PokemonPage</p>
-    </div>
+    <PokemonLayout>
+      <PokemonGrid />
+    </PokemonLayout>
   )
 }
 
