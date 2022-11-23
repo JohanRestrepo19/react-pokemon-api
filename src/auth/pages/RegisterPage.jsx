@@ -10,16 +10,13 @@ const initialFormState = {
 }
 
 const RegisterPage = () => {
-  const { email, password, onInputChange, formState } =
-    useForm(initialFormState)
+  const { email, password, onInputChange } = useForm(initialFormState)
 
   const dispatch = useDispatch()
 
   const handleFormSubmit = event => {
     event.preventDefault()
     dispatch(startRegisterUser({ email, password }))
-
-    console.log(formState)
   }
   return (
     <AuthLayout>

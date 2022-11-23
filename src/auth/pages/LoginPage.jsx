@@ -9,8 +9,7 @@ const initialFormState = {
   password: '',
 }
 const LoginPage = () => {
-  const { email, password, onInputChange, formState } =
-    useForm(initialFormState)
+  const { email, password, onInputChange } = useForm(initialFormState)
 
   const dispatch = useDispatch()
 
