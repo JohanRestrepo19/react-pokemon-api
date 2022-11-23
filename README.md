@@ -23,6 +23,7 @@ el **nombre**, **habilidades** e **imagen** del pokemon en cuestión.
 - React Router V6
 - Redux Toolkit
 - Firebase
+- Tailwindcss v3
 
 ## Instalación y ejecución :computer:
 
