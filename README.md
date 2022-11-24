@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-<img src="pokeball.png" width="200">
+<img src="./public/pokeball.png" width="200">
 </p>
 
 Este proyecto fue desarrollado utilizando un login y registro de usuarios básico
