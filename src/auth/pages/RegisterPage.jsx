@@ -1,76 +1,73 @@
-import { useDispatch } from 'react-redux'
+import { Formik, Form } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { useForm } from '../../hooks/useForm'
 import { startRegisterUser } from '../../store/auth/authThunk'
+import { EmailInput } from '../components/EmailInput'
+import { PasswordInput } from '../components/PasswordInput'
+import { SubmitButton } from '../components/SubmitButton'
 import { AuthLayout } from '../layouts/AuthLayout'
+import { object, string } from 'yup'
 
-const initialFormState = {
-  email: '',
-  password: '',
-}
+const registerValidationSchema = object({
+  email: string().email('Email no válido').required('El email es requerido'),
+  password: string()
+    .min(6, 'La contraseña debe ser de al menos 6 caracteres')
+    .required('La constraseña es requerida'),
+})
 
 const RegisterPage = () => {
-  const { email, password, onInputChange } = useForm(initialFormState)
-
   const dispatch = useDispatch()
+  const { errorMessage } = useSelector(state => state.auth)
 
-  const handleFormSubmit = event => {
-    event.preventDefault()
-    dispatch(startRegisterUser({ email, password }))
+  const handleFormSubmit = (values, { setSubmitting }) => {
+    dispatch(
+      startRegisterUser({ email: values.email, password: values.password })
+    )
+    setSubmitting(false)
   }
+
   return (
     <AuthLayout>
       <div className="flex flex-col bg-white shadow-md p-8  rounded-3xl w-50 max-w-md">
-        <h1 className="font-medium text-xl text-gray-800 self-center mb-5">
+        <h1 className="font-medium text-xl text-gray-800 self-center">
           Registro
         </h1>
+        {errorMessage ? (
+          <div className="text-red-500 text-center mb-2">
+            Correo suministrado ya está en uso
+          </div>
+        ) : null}
         <div>
-          <form
-            className="flex flex-col"
+          <Formik
+            initialValues={{ email: '', password: '' }}
             onSubmit={handleFormSubmit}
+            validationSchema={registerValidationSchema}
           >
-            <div className="flex flex-col mb-5">
-              <label className="mb-1 text-xs tracking-wide text-gray-600">
-                Email:
-              </label>
-              <input
+            <Form className="flex flex-col">
+              <EmailInput
+                label="Email: "
                 id="email"
-                type="email"
                 name="email"
-                value={email}
-                className="text-sm placeholder-gray-500 px-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
                 placeholder="Ingrese su correo"
-                onChange={onInputChange}
               />
-            </div>
 
-            <div className="flex flex-col mb-5">
-              <label className="mb-1 text-xs tracking-wide text-gray-600">
-                Contraseña:
-              </label>
-              <input
+              <PasswordInput
+                label="Contraseña: "
                 id="password"
-                type="password"
                 name="password"
-                value={password}
-                className="text-sm placeholder-gray-500 px-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
                 placeholder="Ingrese su contraseña"
-                onChange={onInputChange}
               />
-            </div>
-            <button
-              type="submit"
-              className="my-2 focus:outline-none text-white bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-ful transition duration-150 ease-in"
-            >
-              Registrase
-            </button>
-            <div className="self-center text-xs">
-              <span className="">Ya tienes cuenta?</span>
-              <span className="ml-2 text-blue-500 font-semibold">
-                <Link to={'/auth/login'}>Ingresa</Link>
-              </span>
-            </div>
-          </form>
+
+              <SubmitButton>Registrarse</SubmitButton>
+
+              <div className="self-center text-xs">
+                <span className="">Ya tienes cuenta?</span>
+                <span className="ml-2 text-blue-500 font-semibold">
+                  <Link to={'/auth/login'}>Ingresa</Link>
+                </span>
+              </div>
+            </Form>
+          </Formik>
         </div>
       </div>
     </AuthLayout>
