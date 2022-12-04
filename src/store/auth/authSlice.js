@@ -18,6 +18,7 @@ export const authSlice = createSlice({
     },
     checkingCredentials: state => {
       state.status = 'checking'
+      state.errorMessage = null
     },
     logout: (state, { payload }) => {
       state.status = 'not-authenticated'
