@@ -1,12 +1,13 @@
 import { Formik, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { startRegisterUser } from '../../store/auth/authThunk'
 import { EmailInput } from '../components/EmailInput'
 import { PasswordInput } from '../components/PasswordInput'
 import { SubmitButton } from '../components/SubmitButton'
 import { AuthLayout } from '../layouts/AuthLayout'
 import { object, string } from 'yup'
+import { cleanErrors } from '../../store/auth/authSlice'
 
 const registerValidationSchema = object({
   email: string().email('Email no válido').required('El email es requerido'),
@@ -18,12 +19,18 @@ const registerValidationSchema = object({
 const RegisterPage = () => {
   const dispatch = useDispatch()
   const { errorMessage } = useSelector(state => state.auth)
+  const navigate = useNavigate()
 
   const handleFormSubmit = (values, { setSubmitting }) => {
     dispatch(
       startRegisterUser({ email: values.email, password: values.password })
     )
     setSubmitting(false)
+  }
+
+  const handleClickLoginLink = () => {
+    dispatch(cleanErrors())
+    navigate('/auth/login')
   }
 
   return (
@@ -62,8 +69,11 @@ const RegisterPage = () => {
 
               <div className="self-center text-xs">
                 <span className="">Ya tienes cuenta?</span>
-                <span className="ml-2 text-blue-500 font-semibold">
-                  <Link to={'/auth/login'}>Ingresa</Link>
+                <span
+                  className="ml-2 text-blue-500 font-semibold cursor-pointer"
+                  onClick={handleClickLoginLink}
+                >
+                  Ingresa
                 </span>
               </div>
             </Form>

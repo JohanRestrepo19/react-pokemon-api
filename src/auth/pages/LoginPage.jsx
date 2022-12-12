@@ -1,19 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Formik, Form } from 'formik'
 import { AuthLayout } from '../layouts/AuthLayout'
 import { EmailInput } from '../components/EmailInput'
 import { PasswordInput } from '../components/PasswordInput'
 import { startLogin } from '../../store/auth/authThunk'
 import { SubmitButton } from '../components/SubmitButton'
+import { cleanErrors } from '../../store/auth/authSlice'
 
 const LoginPage = () => {
   const dispatch = useDispatch()
   const { errorMessage } = useSelector(state => state.auth)
+  const navigate = useNavigate()
 
   const handleFormSubmit = (values, { setSubmitting }) => {
     dispatch(startLogin({ email: values.email, password: values.password }))
     setSubmitting(false)
+  }
+
+  const handleClickRegisterLink = () => {
+    dispatch(cleanErrors())
+    navigate('/auth/register')
   }
 
   return (
@@ -53,8 +60,11 @@ const LoginPage = () => {
 
               <div className="self-center text-xs">
                 <span>No tienes cuenta?</span>
-                <span className="ml-2 text-blue-500 font-semibold">
-                  <Link to={'/auth/register'}>Registrate</Link>
+                <span
+                  className="ml-2 text-blue-500 font-semibold cursor-pointer"
+                  onClick={handleClickRegisterLink}
+                >
+                  Registrate
                 </span>
               </div>
             </Form>

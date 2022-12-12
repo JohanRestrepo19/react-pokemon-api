@@ -26,7 +26,11 @@ export const authSlice = createSlice({
       state.email = null
       state.errorMessage = payload?.errorMessage
     },
+    cleanErrors: state => {
+      state.errorMessage = null
+    },
   },
 })
 
-export const { login, logout, checkingCredentials } = authSlice.actions
+export const { login, logout, checkingCredentials, cleanErrors } =
+  authSlice.actions
