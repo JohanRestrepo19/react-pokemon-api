@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Formik, Form } from 'formik'
 import { AuthLayout } from '../layouts/AuthLayout'
-import { EmailInput } from '../components/EmailInput'
-import { PasswordInput } from '../components/PasswordInput'
-import { startLogin } from '../../store/auth/authThunk'
-import { SubmitButton } from '../components/SubmitButton'
-import { cleanErrors } from '../../store/auth/authSlice'
-import { ErrorAuthMessage } from '../components/ErrorAuthMessage'
+import {
+  EmailInput,
+  PasswordInput,
+  SubmitButton,
+  ErrorAuthMessage,
+} from '../components'
+import { startLogin, cleanErrors } from '../../store/auth'
 
 const LoginPage = () => {
   const dispatch = useDispatch()

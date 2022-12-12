@@ -2,13 +2,14 @@ import { Formik, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { object, string } from 'yup'
-import { startRegisterUser } from '../../store/auth/authThunk'
-import { EmailInput } from '../components/EmailInput'
-import { PasswordInput } from '../components/PasswordInput'
-import { SubmitButton } from '../components/SubmitButton'
 import { AuthLayout } from '../layouts/AuthLayout'
-import { cleanErrors } from '../../store/auth/authSlice'
-import { ErrorAuthMessage } from '../components/ErrorAuthMessage'
+import {
+  EmailInput,
+  PasswordInput,
+  SubmitButton,
+  ErrorAuthMessage,
+} from '../components'
+import { cleanErrors, startRegisterUser } from '../../store/auth'
 
 const registerValidationSchema = object({
   email: string().email('Email no válido').required('El email es requerido'),

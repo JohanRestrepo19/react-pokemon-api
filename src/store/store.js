@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { authSlice } from './auth/authSlice'
-import { pokemonSlice } from './pokemon/pokemonSlice'
+import { authSlice } from './auth'
+import { pokemonSlice } from './pokemon'
 
 export const store = configureStore({
   reducer: {
