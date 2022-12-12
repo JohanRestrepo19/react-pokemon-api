@@ -1,13 +1,14 @@
 import { Formik, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { object, string } from 'yup'
 import { startRegisterUser } from '../../store/auth/authThunk'
 import { EmailInput } from '../components/EmailInput'
 import { PasswordInput } from '../components/PasswordInput'
 import { SubmitButton } from '../components/SubmitButton'
 import { AuthLayout } from '../layouts/AuthLayout'
-import { object, string } from 'yup'
 import { cleanErrors } from '../../store/auth/authSlice'
+import { ErrorAuthMessage } from '../components/ErrorAuthMessage'
 
 const registerValidationSchema = object({
   email: string().email('Email no válido').required('El email es requerido'),
@@ -39,11 +40,13 @@ const RegisterPage = () => {
         <h1 className="font-medium text-xl text-gray-800 self-center">
           Registro
         </h1>
+
         {errorMessage ? (
-          <div className="text-red-500 text-center mb-2">
+          <ErrorAuthMessage>
             Correo suministrado ya está en uso
-          </div>
+          </ErrorAuthMessage>
         ) : null}
+
         <div>
           <Formik
             initialValues={{ email: '', password: '' }}
@@ -66,18 +69,18 @@ const RegisterPage = () => {
               />
 
               <SubmitButton>Registrarse</SubmitButton>
-
-              <div className="self-center text-xs">
-                <span className="">Ya tienes cuenta?</span>
-                <span
-                  className="ml-2 text-blue-500 font-semibold cursor-pointer"
-                  onClick={handleClickLoginLink}
-                >
-                  Ingresa
-                </span>
-              </div>
             </Form>
           </Formik>
+        </div>
+
+        <div className="self-center text-xs mt-2">
+          <span className="">Ya tienes cuenta?</span>
+          <span
+            className="ml-2 text-blue-500 font-semibold cursor-pointer"
+            onClick={handleClickLoginLink}
+          >
+            Ingresa
+          </span>
         </div>
       </div>
     </AuthLayout>

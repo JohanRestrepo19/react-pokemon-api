@@ -1,5 +1,5 @@
 import { useField } from 'formik'
-import { ErrorMessage } from './ErrorMessage'
+import { ErrorInputMessage } from './ErrorInputMessage'
 
 export const EmailInput = ({ label, ...props }) => {
   const [field, meta] = useField(props)
@@ -11,7 +11,7 @@ export const EmailInput = ({ label, ...props }) => {
       </label>
 
       {meta.touched && meta.error ? (
-        <ErrorMessage>{meta.error}</ErrorMessage>
+        <ErrorInputMessage>{meta.error}</ErrorInputMessage>
       ) : null}
 
       <input
