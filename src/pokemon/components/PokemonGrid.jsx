@@ -1,23 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
 import { fetchPokemonData } from '../../api/fetchUtils'
 import { PokemonListItem } from './PokemonListItem'
 
 export const PokemonGrid = () => {
-  const [pokemonList, setPokemonList] = useState([])
-
-  // TODO: Mejorar la implementación con React Query.
-  useEffect(() => {
-    fetchPokemonData().then(data => setPokemonList(data))
-  }, [])
+  const pokemonsQuery = useQuery('pokemons', fetchPokemonData)
 
   return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-3 self-center gap-4 px-8">
-      {pokemonList.map((pokemon, pokemonIdx) => (
-        <PokemonListItem
-          key={pokemonIdx}
-          name={pokemon.name}
-        />
-      ))}
+    <div>
+      {pokemonsQuery.isLoading ? <div>Data is being loaded...</div> : null}
+      {pokemonsQuery.isError ? <div>There was an error...</div> : null}
+      {pokemonsQuery.isSuccess ? (
+        <div className="grid sm:grid-cols-1 md:grid-cols-3 self-center gap-4 px-8">
+          {pokemonsQuery.data.map((pokemon, pokemonIdx) => (
+            <PokemonListItem
+              key={pokemonIdx}
+              name={pokemon.name}
+            />
+          ))}
+        </div>
+      ) : null}
     </div>
   )
 }

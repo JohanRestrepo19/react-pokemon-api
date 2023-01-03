@@ -4,12 +4,14 @@ export const fetchPokemonData = async () => {
   return results
 }
 
-export const fetchPokemoAbilitiesData = async name => {
+export const fetchPokemonAbilities = async name => {
+  console.log("I've been called with: ", name)
   const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
   const { abilities, sprites } = await resp.json()
   const mappedAbilities = abilities.map(ability => ({
     name: ability.ability.name,
   }))
+
   return {
     abilities: mappedAbilities,
     img: sprites.other['official-artwork'].front_default,
