@@ -8,6 +8,7 @@ export const PokemonListItem = ({ name }) => {
   const dispatch = useDispatch()
 
   const handleClickItem = async () => {
+    // TODO: Mejorar la implementación utilizando React Query.
     const pokemonInfo = await fetchPokemoAbilitiesData(name)
     dispatch(selectPokemon({ name, ...pokemonInfo }))
     navigate('/pokemonInfo')

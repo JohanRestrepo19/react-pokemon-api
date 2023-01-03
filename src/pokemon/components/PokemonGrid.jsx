@@ -5,6 +5,7 @@ import { PokemonListItem } from './PokemonListItem'
 export const PokemonGrid = () => {
   const [pokemonList, setPokemonList] = useState([])
 
+  // TODO: Mejorar la implementación con React Query.
   useEffect(() => {
     fetchPokemonData().then(data => setPokemonList(data))
   }, [])
